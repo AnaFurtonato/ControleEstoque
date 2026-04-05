@@ -156,5 +156,5 @@ O estoque é atualizado automaticamente.
 
 # 👩‍💻 Autora
 
-Ana Clara Furtonato
+Ana Furtonato
 Estudos de Backend com C# / .NET

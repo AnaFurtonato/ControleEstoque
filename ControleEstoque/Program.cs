@@ -23,7 +23,8 @@ namespace ControleEstoque
                 Console.WriteLine("1 - Cadastrar produto");
                 Console.WriteLine("2 - Lista produtos");
                 Console.WriteLine("3 - Comprar produto");
-                Console.WriteLine("4 - Sair");
+                Console.WriteLine("4 - Editar produto");
+                Console.WriteLine("5 - Sair");
                 Console.Write("Digite sua opção: ");
 
                 string? opcao = Console.ReadLine();
@@ -38,6 +39,9 @@ namespace ControleEstoque
                         break;
                     case "3":
                         loja.ComprarProduto();
+                        break;
+                    case "4":
+                        loja.EditarProduto();
                         break;
                     default:
                         return;
@@ -92,8 +96,15 @@ namespace ControleEstoque
             string? preco = Console.ReadLine();
 
             produto.Nome = nome;
-            produto.Quantidade = int.Parse(quantidade);
-            produto.Preco = double.Parse(preco);
+            if (!string.IsNullOrEmpty(quantidade))
+            {
+                produto.Quantidade = int.Parse(quantidade);
+            }
+
+            if (!string.IsNullOrEmpty(preco))
+            {
+                produto.Preco = double.Parse(preco);
+            }
 
             bool confirmou = produto.ConfirmaCadastro();
 
@@ -134,7 +145,7 @@ namespace ControleEstoque
                 bool encontou = false;
                 foreach (var item in produtos)
                 {
-                    if (item.Nome == comprar)
+                    if (item.Nome.Equals(comprar, StringComparison.OrdinalIgnoreCase))
                     {
                         if (item.Quantidade > 0)
                         {
@@ -154,6 +165,100 @@ namespace ControleEstoque
             return;
         }
 
-    }
+        public void EditarProduto()
+        {
+            foreach (var item in produtos)
+            {
+                Console.WriteLine($"{item.Nome} - {item.Quantidade} - R$ {item.Preco}");
+            }
+            Console.WriteLine("Qual produto você quer editar?");
+            string? editar = Console.ReadLine();
 
+            bool novaEdicao = false;
+            foreach (var item in produtos)
+            {                
+                if(item.Nome.Equals(editar, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("O que você quer editar?");
+                    Console.WriteLine("1 - Nome");
+                    Console.WriteLine("2 - Quantidade");
+                    Console.WriteLine("3 - Preço");
+                    Console.WriteLine("4 - Editar tudo");
+
+                    string? editando = Console.ReadLine();
+
+                    if(editando == "1") {
+                        Console.WriteLine($"Editando produto: {item.Nome}");
+                        Console.WriteLine("Digite o novo nome:");
+                        string? novoNome = Console.ReadLine();
+                        item.Nome = novoNome;
+
+                        Console.WriteLine($"O nome foi editado para: {novoNome}, com sucesso!");
+                        novaEdicao = true;
+                        return;
+                    } 
+                    else if(editando == "2") {
+                        Console.WriteLine($"Editando produto: {item.Nome}");
+                        Console.WriteLine("Digite a nova quantidade:");
+                        string? novaQtd = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(novaQtd))
+                        {
+                            item.Quantidade = int.Parse(novaQtd);
+                        }
+
+                        Console.WriteLine($"A quantidade foi editado para: {novaQtd}, com sucesso!");
+                        novaEdicao = true;
+                        return;
+                    } 
+                    else if (editando == "3") {
+                        Console.WriteLine($"Editando produto: {item.Nome}");
+                        Console.WriteLine("Digite o novo preco:");
+                        string? novaPreco = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(novaPreco))
+                        {
+                            item.Preco = double.Parse(novaPreco);
+                        }                        
+
+                        Console.WriteLine($"A preço foi editado para: {novaPreco}, com sucesso!");
+                        novaEdicao = true;
+                        return;
+                    } 
+                    else if (editando == "4") {
+                        Console.WriteLine($"Editando produto: {item.Nome}");
+
+                        Console.WriteLine("Digite o novo nome:");
+                        string? novoNome = Console.ReadLine();
+                        item.Nome = novoNome;
+
+                        Console.WriteLine("Digite a nova quantidade:");
+                        string? novaQtd = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(novaQtd))
+                        {
+                            item.Quantidade = int.Parse(novaQtd);
+                        }
+
+                        Console.WriteLine("Digite o novo preco:");
+                        string? novaPreco = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(novaPreco))
+                        {
+                            item.Preco = double.Parse(novaPreco);
+                        }
+
+                        Console.WriteLine($"Produto editado com sucesso! Nome: {novoNome} - Quantidade: {novaQtd} - Preço: R$ {novaPreco}");
+                        novaEdicao = true;
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nenhum produto editado");
+                        return;
+                    }
+                }
+            }
+
+            if (!novaEdicao) Console.WriteLine("Produto não encontrado");
+        }
+    }
 }

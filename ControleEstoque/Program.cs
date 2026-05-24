@@ -24,7 +24,8 @@ namespace ControleEstoque
                 Console.WriteLine("2 - Lista produtos");
                 Console.WriteLine("3 - Comprar produto");
                 Console.WriteLine("4 - Editar produto");
-                Console.WriteLine("5 - Sair");
+                Console.WriteLine("5 - Remover produto");
+                Console.WriteLine("6 - Sair");
                 Console.Write("Digite sua opção: ");
 
                 string? opcao = Console.ReadLine();
@@ -42,6 +43,9 @@ namespace ControleEstoque
                         break;
                     case "4":
                         loja.EditarProduto();
+                        break;
+                    case "5":
+                        loja.RemoverProduto();
                         break;
                     default:
                         return;
@@ -259,6 +263,46 @@ namespace ControleEstoque
             }
 
             if (!novaEdicao) Console.WriteLine("Produto não encontrado");
+        }
+
+        public void RemoverProduto(){
+            foreach (var item in produtos)
+            {
+                Console.WriteLine($"{item.Nome} - {item.Quantidade} - R$ {item.Preco}");
+            }
+            Console.WriteLine("Qual produto você quer remover?");
+            string? remover = Console.ReadLine();
+
+            Produtos produtoRemover = null;
+            foreach (var item in produtos)
+            {                
+                if (item.Nome.Equals(remover, StringComparison.OrdinalIgnoreCase))
+                {
+                    produtoRemover = item;
+                }
+            }
+
+            if (produtoRemover != null)
+            {
+                Console.WriteLine($"Tem certeza que quer remover o produto: {produtoRemover.Nome}");
+                Console.WriteLine("1 - Sim");
+                Console.WriteLine("2 - Não");
+                string? sn = Console.ReadLine();
+
+                if (sn == "1")
+                {
+                    produtos.Remove(produtoRemover);
+                    Console.WriteLine("Produto removido com sucesso");
+                }
+                else {
+                    Console.WriteLine("Cancelada");
+                    return;
+                }                
+            }
+            else
+            {
+                Console.WriteLine("Produto não encontrado");
+            }
         }
     }
 }

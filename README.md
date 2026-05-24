@@ -1,33 +1,56 @@
 # 🛒 Controle de Estoque - Console App (.NET / C#)
 
-Projeto desenvolvido para praticar conceitos de **backend com C# e .NET**, simulando um sistema simples de **controle de estoque** executado no console.
+Projeto desenvolvido para praticar conceitos de desenvolvimento backend com **C# e .NET**, simulando um sistema completo de controle de estoque executado no console.
 
-O sistema permite cadastrar produtos, listar itens e realizar compras com controle de quantidade em memória.
+O sistema permite cadastrar, listar, buscar, editar, remover e comprar produtos utilizando Programação Orientada a Objetos (OO) e armazenamento em memória com `List<T>`.
 
 ---
 
 # 🎯 Objetivo do Projeto
 
-Praticar:
+Praticar conceitos fundamentais de backend:
 
-* Programação orientada a objetos (OO)
-* Classes e objetos
+* Programação Orientada a Objetos
+* Classes e Objetos
 * Métodos e propriedades
-* Listas em memória (`List<T>`)
-* Estrutura de menu (console)
+* Encapsulamento
+* CRUD completo
+* Listas em memória
+* Estrutura de menus
 * Regras de negócio
-* Separação de responsabilidades
-* Lógica de backend
+* Validação de entrada
+* Manipulação de coleções
 
 ---
 
-# 🧠 Arquitetura do Projeto
+# 🧠 Estrutura do Projeto
 
-O sistema foi separado em três classes principais:
+O sistema foi separado em três responsabilidades principais:
+
+## 🖥 Program / MenuPrincipal
+
+Responsável pela interação com o usuário.
+
+Funcionalidades:
+
+* Exibir menu
+* Ler opções
+* Chamar regras da loja
+
+Menu disponível:
+
+1 - Cadastrar produto
+2 - Listar produtos
+3 - Comprar produto
+4 - Editar produto
+5 - Remover produto
+6 - Sair
+
+---
 
 ## 📦 Produtos
 
-Responsável por representar o produto.
+Representa um produto da loja.
 
 Propriedades:
 
@@ -40,121 +63,147 @@ Métodos:
 * ExibirProduto()
 * ConfirmaCadastro()
 
-Função:
-Armazena os dados e comportamento de um produto.
+Responsabilidade:
+Armazenar os dados e comportamento de um produto.
 
 ---
 
 ## 🏪 Loja
 
-Responsável pelas regras de negócio.
+Responsável pelas regras de negócio do sistema.
 
-Funcionalidades:
-
-* Cadastrar produto
-* Listar produtos
-* Comprar produto
-* Controlar estoque em memória
-
-A classe Loja mantém uma lista:
+A classe mantém os produtos em memória utilizando:
 
 List<Produtos>
 
-Essa lista funciona como um "banco de dados" em memória.
+Essa lista funciona como um banco de dados temporário.
 
 ---
 
-## 🖥 MenuPrincipal
+# ⚙️ Funcionalidades Implementadas
 
-Responsável pela interface com o usuário.
+## ✅ Cadastro de Produtos
 
-Exibe o menu:
-
-1 - Cadastrar produto
-2 - Listar produtos
-3 - Comprar produto
-4 - Sair
-
-O menu chama os métodos da classe Loja.
-
----
-
-# ⚙️ Funcionalidades
-
-## ✅ Cadastrar Produto
-
-Permite cadastrar:
+Permite:
 
 * Nome
 * Quantidade
 * Preço
 
-Antes de salvar, o sistema pede confirmação.
+Antes de salvar:
 
----
-
-## 📋 Listar Produtos
-
-Exibe todos os produtos cadastrados:
+* o sistema solicita confirmação do usuário.
 
 Exemplo:
 
-Arroz - 10 - R$ 20
-Feijão - 5 - R$ 8
+Você tem certeza que quer cadastrar Arroz a R$ 20 com 5 unidades?
 
 ---
 
-## 🛒 Comprar Produto
+## 📋 Listagem de Produtos
 
-Permite comprar um produto pelo nome.
-
-O sistema:
-
-* verifica se existe
-* verifica estoque
-* diminui quantidade
-* confirma compra
+Exibe todos os produtos cadastrados.
 
 Exemplo:
 
-Compra realizada com sucesso!
+Arroz - R$ 20 - Quantidade: 5
+Feijão - R$ 10 - Quantidade: 2
 
 ---
 
-## 📉 Controle de Estoque
+## 🛒 Compra de Produtos
 
-Ao comprar:
+Permite:
 
-Quantidade--
+* selecionar produto
+* validar estoque
+* reduzir quantidade automaticamente
 
-O estoque é atualizado automaticamente.
+Regras:
+
+* impede compra sem estoque
+* informa produto não encontrado
 
 ---
 
-# 🧪 Tecnologias utilizadas
+## ✏️ Edição de Produtos
+
+Permite editar:
+
+* Nome
+* Quantidade
+* Preço
+* Todos os dados
+
+A busca do produto ignora:
+
+* letras maiúsculas/minúsculas
+
+Utilizando:
+
+StringComparison.OrdinalIgnoreCase
+
+---
+
+## 🗑️ Remoção de Produtos
+
+Permite:
+
+* localizar produto
+* confirmar remoção
+* remover da lista
+
+Antes de remover:
+
+* o sistema pede confirmação do usuário.
+
+---
+
+# 🧪 Conceitos praticados
+
+* CRUD (Create, Read, Update, Delete)
+* foreach
+* List<T>
+* bool
+* return
+* switch
+* while
+* validação de dados
+* int.Parse()
+* double.Parse()
+* string.IsNullOrEmpty()
+* Equals()
+* Contains()
+* inferência de tipo
+* referência de objetos
+* manipulação de listas
+
+---
+
+# 🚀 Tecnologias Utilizadas
 
 * C#
 * .NET
 * Console Application
 * Programação Orientada a Objetos
-* List<T> (memória)
 
 ---
 
-# 🚀 Próximas melhorias
+# 🧠 Aprendizados do Projeto
 
-* Editar produto
-* Remover produto
-* Buscar produto
-* Comprar múltiplas unidades
-* Carrinho de compras
-* Valor total do estoque
-* API ASP.NET Core
-* Frontend Angular
+Durante o desenvolvimento foram praticados conceitos importantes como:
 
+* Separação de responsabilidades
+* Estruturação de classes
+* Regras de negócio
+* Arquitetura orientada a objetos
+* Manipulação de memória
+* Fluxo de sistemas backend
+  
 ---
 
 # 👩‍💻 Autora
 
 Ana Furtonato
-Estudos de Backend com C# / .NET
+
+Estudos focados em Backend com C# / .NET
